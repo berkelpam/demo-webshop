@@ -2,7 +2,57 @@ const PRODUCTS = {
   apple: { name: "Apple", emoji: "🍏" },
   banana: { name: "Banana", emoji: "🍌" },
   lemon: { name: "Lemon", emoji: "🍋" },
+  strawberry: { name: "Strawberry", emoji: "🍓" },
 };
+
+// Display a dismissible in-page error banner
+function showError(message) {
+  // Avoid duplicating banner
+  if (document.getElementById("errorBanner")) return;
+  const banner = document.createElement("div");
+  banner.id = "errorBanner";
+  banner.className = "error-banner";
+  banner.setAttribute("role", "alert");
+  banner.innerHTML = `
+    <span class="error-msg">${message}</span>
+    <button class="close-btn" aria-label="Dismiss error">×</button>
+  `;
+  const main = document.getElementById("main-content") || document.body;
+  main.insertBefore(banner, main.firstChild);
+  const close = banner.querySelector(".close-btn");
+  close.onclick = function () {
+    banner.remove();
+  };
+  // Broadcast the error to other tabs/windows so they can show the banner too
+  try {
+    localStorage.setItem(
+      "lastAddError",
+      JSON.stringify({ message: message, ts: Date.now() })
+    );
+  } catch (e) {
+    // ignore storage errors (e.g. private mode)
+  }
+}
+
+function clearError() {
+  const existing = document.getElementById("errorBanner");
+  if (existing) existing.remove();
+}
+
+// Listen for error broadcasts from other tabs/windows
+window.addEventListener("storage", function (e) {
+  if (!e.key) return;
+  if (e.key === "lastAddError" && e.newValue) {
+    try {
+      const payload = JSON.parse(e.newValue);
+      if (payload && payload.message) {
+        showError(payload.message);
+      }
+    } catch (err) {
+      // ignore parse errors
+    }
+  }
+});
 
 function getBasket() {
   try {
@@ -18,6 +68,17 @@ function getBasket() {
 
 function addToBasket(product) {
   const basket = getBasket();
+  // Prevent strawberries and bananas being combined
+  const hasBanana = basket.includes("banana");
+  const hasStrawberry = basket.includes("strawberry");
+  if (product === "strawberry" && hasBanana) {
+    showError("Strawberries and bananas cannot be combined.");
+    return;
+  }
+  if (product === "banana" && hasStrawberry) {
+    showError("Strawberries and bananas cannot be combined.");
+    return;
+  }
   basket.push(product);
   localStorage.setItem("basket", JSON.stringify(basket));
 }

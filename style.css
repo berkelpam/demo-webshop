@@ -353,3 +353,31 @@ footer a {
   color: green;
   margin-top: 1rem;
 }
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #fff4f4;
+  border: 1px solid #f2c0c0;
+  color: #7a1f1f;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.error-banner .error-msg {
+  font-weight: 700;
+}
+.error-banner .close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #7a1f1f;
+  padding: 0.1rem 0.6rem;
+}
+.error-banner .close-btn:hover {
+  color: #501010;
+}
