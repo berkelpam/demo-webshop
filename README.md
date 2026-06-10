@@ -1,4 +1,5 @@
 # Demo Webshop
+[![CI](https://github.com/berkelpam/demo-webshop/actions/workflows/ci.yml/badge.svg)](https://github.com/berkelpam/demo-webshop/actions)
 
 A simple fruit shop demo application built with HTML, CSS, and JavaScript. This project serves as a demonstration application for AI agent workshops and testing purposes.
 
@@ -8,7 +9,7 @@ A simple fruit shop demo application built with HTML, CSS, and JavaScript. This 
 
 ## Features
 
-- 🍏 **Product Catalog**: Browse fresh fruits (Apple, Banana, Lemon)
+- 🍏 **Product Catalog**: Browse fresh fruits (Apple, Banana, Lemon, Strawberry)
 - 🛒 **Shopping Cart**: Add items to basket and manage your order
 
 ## Usage
