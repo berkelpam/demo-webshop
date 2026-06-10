@@ -1,0 +1,11 @@
+{
+  "name": "demo-webshop-smoketest",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test:smoke": "node test/smoke-test.js"
+  },
+  "dependencies": {
+    "jsdom": "^22.1.0"
+  }
+}
