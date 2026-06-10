@@ -1,6 +1,7 @@
 const PRODUCTS = {
   apple: { name: "Apple", emoji: "🍏" },
   banana: { name: "Banana", emoji: "🍌" },
+  grapes: { name: "Grapes", emoji: "🍇" },
   lemon: { name: "Lemon", emoji: "🍋" },
   strawberry: { name: "Strawberry", emoji: "🍓" },
 };
@@ -68,15 +69,15 @@ function getBasket() {
 
 function addToBasket(product) {
   const basket = getBasket();
-  // Prevent strawberries and bananas being combined
+  // Prevent grapes and bananas being combined
   const hasBanana = basket.includes("banana");
-  const hasStrawberry = basket.includes("strawberry");
-  if (product === "strawberry" && hasBanana) {
-    showError("Strawberries and bananas cannot be combined.");
+  const hasGrapes = basket.includes("grapes");
+  if (product === "grapes" && hasBanana) {
+    showError("Grapes and bananas cannot be combined.");
     return;
   }
-  if (product === "banana" && hasStrawberry) {
-    showError("Strawberries and bananas cannot be combined.");
+  if (product === "banana" && hasGrapes) {
+    showError("Grapes and bananas cannot be combined.");
     return;
   }
   basket.push(product);
