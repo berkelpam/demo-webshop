@@ -1,9 +1,12 @@
 const PRODUCTS = {
-  apple: { name: "Apple", emoji: "🍏", unitPriceCents: 45 },
-  banana: { name: "Banana", emoji: "🍌", unitPriceCents: 65 },
-  grapes: { name: "Grapes", emoji: "🍇", unitPriceCents: 120 },
-  lemon: { name: "Lemon", emoji: "🍋", unitPriceCents: 25 },
-  strawberry: { name: "Strawberry", emoji: "🍓", unitPriceCents: 95 },
+  apple: { name: "Apple", emoji: "🍏", unitPriceCents: 45, categories: ["fruits"] },
+  banana: { name: "Banana", emoji: "🍌", unitPriceCents: 65, categories: ["fruits"] },
+  grapes: { name: "Grapes", emoji: "🍇", unitPriceCents: 120, categories: ["fruits"] },
+  lemon: { name: "Lemon", emoji: "🍋", unitPriceCents: 25, categories: ["fruits"] },
+  strawberry: { name: "Strawberry", emoji: "🍓", unitPriceCents: 95, categories: ["fruits"] },
+  cucumber: { name: "Cucumber", emoji: "🥒", unitPriceCents: 55, categories: ["vegetables"] },
+  avocado: { name: "Avocado", emoji: "🥑", unitPriceCents: 110, categories: ["vegetables"] },
+  tomato: { name: "Tomato", emoji: "🍅", unitPriceCents: 40, categories: ["fruits", "vegetables"] },
 };
 
 // Display a dismissible in-page error banner

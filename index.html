@@ -35,52 +35,23 @@
     </header>
     <main id="main-content" role="main">
       <h1 class="products-title">Products</h1>
-      <ul class="emoji-list" role="list" aria-label="Product list">
-        <li>
-          <a
-            href="product-apple.html"
-            class="emoji-box"
-            aria-label="View Apple product details"
-            >🍏</a
-          >
-          <a href="product-apple.html">Go to Apple</a>
-        </li>
-        <li>
-          <a
-            href="product-banana.html"
-            class="emoji-box"
-            aria-label="View Banana product details"
-            >🍌</a
-          >
-          <a href="product-banana.html">Go to Banana</a>
-        </li>
-        <li>
-          <a
-            href="product-grapes.html"
-            class="emoji-box"
-            aria-label="View Grapes product details"
-            >🍇</a
-          >
-          <a href="product-grapes.html">Go to Grapes</a>
-        </li>
-        <li>
-          <a
-            href="product-strawberry.html"
-            class="emoji-box"
-            aria-label="View Strawberry product details"
-            >🍓</a
-          >
-          <a href="product-strawberry.html">Go to Strawberry</a>
-        </li>
-        <li>
-          <a
-            href="product-lemon.html"
-            class="emoji-box"
-            aria-label="View Lemon product details"
-            >🍋</a
-          >
-          <a href="product-lemon.html">Go to Lemon</a>
-        </li>
+      
+      <!-- Category Tabs -->
+      <div class="category-tabs" role="tablist" aria-label="Product categories">
+        <button class="tab-button active" role="tab" aria-selected="true" aria-controls="fruits-panel" data-category="fruits">
+          🍎 Fruits
+        </button>
+        <button class="tab-button" role="tab" aria-selected="false" aria-controls="vegetables-panel" data-category="vegetables">
+          🥬 Vegetables
+        </button>
+      </div>
+      
+      <!-- Fruits Category -->
+      <ul class="emoji-list" id="fruits-panel" role="tabpanel" aria-labelledby="fruits-tab" data-category="fruits">
+      </ul>
+      
+      <!-- Vegetables Category -->
+      <ul class="emoji-list" id="vegetables-panel" role="tabpanel" aria-labelledby="vegetables-tab" data-category="vegetables" style="display: none;">
       </ul>
     </main>
     <footer>
@@ -93,5 +64,59 @@
       </a>
     </footer>
     <script src="shop.js"></script>
+    <script>
+      // Render products for each category
+      function renderProductsByCategory() {
+        const categories = ['fruits', 'vegetables'];
+        categories.forEach(category => {
+          const panel = document.querySelector(`.emoji-list[data-category="${category}"]`);
+          if (!panel) return;
+          
+          panel.innerHTML = '';
+          Object.entries(PRODUCTS).forEach(([id, product]) => {
+            if (product.categories && product.categories.includes(category)) {
+              const li = document.createElement('li');
+              li.innerHTML = `
+                <a href="product-${id}.html" class="emoji-box" aria-label="View ${product.name} product details">
+                  ${product.emoji}
+                </a>
+                <a href="product-${id}.html">Go to ${product.name}</a>
+              `;
+              panel.appendChild(li);
+            }
+          });
+        });
+      }
+      
+      // Tab switching functionality
+      function setupTabs() {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        tabButtons.forEach(button => {
+          button.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+            
+            // Update button states
+            tabButtons.forEach(btn => {
+              btn.classList.remove('active');
+              btn.setAttribute('aria-selected', 'false');
+            });
+            this.classList.add('active');
+            this.setAttribute('aria-selected', 'true');
+            
+            // Update panel visibility
+            document.querySelectorAll('[role="tabpanel"]').forEach(panel => {
+              panel.style.display = 'none';
+            });
+            document.querySelector(`.emoji-list[data-category="${category}"]`).style.display = '';
+          });
+        });
+      }
+      
+      // Initialize on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        renderProductsByCategory();
+        setupTabs();
+      });
+    </script>
   </body>
 </html>
